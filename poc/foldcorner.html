@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .note{
+            position: relative;
+            width:15rem;
+            height:15rem;
+            background-color:#97C02F;
+            z-index:0;
+        }
+        .note::before{
+            /* content property is used with before and after pseudo elements to apply the changes */
+            content: "";
+            position: absolute;
+            /* this pseudo element will make a border with no height or width just the border */
+            bottom:0;
+            right:0;
+            border-width: 60px 60px 0 0;
+            border-color:#658E15 #fff;;
+            border-style: solid;
+        }
+        .icon{
+            font-size:3rem;
+            /* transform: rotate(135deg); */
+           
+        }
+        .note_header{
+            height:20px;
+            width: 99%;
+        }
+        .circle{
+            padding-left: 5px;
+            padding-right:5px;
+            color: white;
+            
+        }
+        .board{
+            border:1px solid;
+            height:100vh;
+        }
+        .header{
+            background-color: tomato;
+            height:50px;
+            z-index:5;
+        }
+        .note_content{
+            height: 63%;
+            width: 99%;
+            overflow: auto;
+            border:1px solid;
+            font-size:25px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="board">
+        <div class="note_container">
+            <div class="note">
+                <div class="note_header">
+                    <i class="fas fa-circle circle"></i>
+                    <i class="fas fa-circle circle"></i>
+                    <i class="fas fa-circle circle"></i>
+                    <i class="fas fa-circle circle"></i>
+                    <i class="fas fa-circle circle"></i>
+                    <i class="fas fa-circle circle"></i>
+                    <i class="fas fa-circle circle"></i>
+                    <i class="fas fa-circle circle"></i>
+                </div>
+                <div class="note_content" contenteditable="true"></div>
+            </div>
+        </div>
+        
+    </div>
+    <script>
+        let board=document.querySelector(".board");
+        let note=document.querySelector(".note");
+        let boardobj=board.getBoundingClientRect();
+        // console.log();
+        let active=false;
+        let currentX;
+        let currentY;
+        let initialX;
+        let initialY;
+        let xoffset=0;
+        let yoffset=0;
+        board.addEventListener("mousedown",dragStart,false);
+        board.addEventListener("mouseup",dragEnd,false);
+        board.addEventListener("mousemove",drag,false);
+        function dragStart(e){
+            // clientX and clientY will return the exact cordinates of the point we click with mouse
+            initialX=e.clientX-xoffset;
+            initialY=e.clientY- yoffset;
+            // so that only note gets drag
+            if(e.target === note){
+                active=true;
+                // console.log("true");
+            }
+        }
+        function drag(e){
+            // e.preventDefault();
+            if(active){
+                
+                currentX=e.clientX-initialX;
+                currentY=e.clientY-initialY;
+
+                xoffset=currentX;
+                yoffset=currentY;
+                setTranslate(currentX,currentY,note);
+            }
+        }
+        function setTranslate(currentX,currentY,note){
+            note.style.transform="translate3d(" + currentX + "px, " + currentY + "px, 0)";
+        }
+        function dragEnd(e){
+            initialX=currentX;
+            initialY=currentY;
+            active=false;
+        }
+    </script>
+</body>
+</html>

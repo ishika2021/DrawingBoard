@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .buttons{
+        display: flex;
+    }
+    .board{
+        height: 100vh;
+        width:100vw;
+        border:1px solid;
+    }
+</style>
+<body>
+    <div class="buttons">
+        <button class="btn1">Undo</button>
+        <button class="btn2">Redo</button>
+    </div>
+    <canvas class="board"></canvas>
+<script>
+    
+    let board=document.querySelector(".board");
+    let undoBtn=document.querySelector(".btn1");
+    let redoBtn=document.querySelector(".btn2");
+    let tool=board.getContext("2d");
+    let undoArr=[];
+    let redoArr=[];
+    tool.strokeStyle="black";
+    let isMouseDown=false;
+    board.addEventListener("mousedown",function(e){
+        let x=e.clientX;
+        let y=e.clientY;
+    
+        tool.beginPath(); //this function is called before line beginning
+        tool.moveTo(x,y); //to draw between the final position of mouse
+        let points={
+            "x":x,
+            "y":y,
+            "event":"mousedown",
+        }
+        undoArr.push(points);
+        isMouseDown=true;
+    })
+    board.addEventListener("mousemove",function(e){
+        let x=e.clientX;
+        let y=e.clientY;
+    
+        if(isMouseDown==true){
+            tool.lineTo(x,y);
+            tool.stroke();
+            let points={
+            "x":x,
+            "y":y,
+            "event":"mousemove",
+            }
+            undoArr.push(points);
+    }
+})
+board.addEventListener("mouseup",function(e){
+    isMouseDown=false;
+})
+undoBtn.addEventListener("click",function(){
+    if(undoArr.length>0){
+        for(let i=0;i<30;i++){
+            let obj=undoArr.pop();
+            redoArr.push(obj);
+        }
+        redraw(undoArr);
+    }
+       
+})
+redoBtn.addEventListener("click",function(){
+    // undoArr.push(redoArr);
+    if(redoArr.length>0 && undoArr.length>0){
+        for(let i=0;i<30;i++){
+            let obj=redoArr.pop();
+            undoArr.push(obj);
+        }
+        redraw(undoArr);
+    }
+        
+})
+function redraw(undoArr){
+    tool.strokeStyle="blue";
+    tool.clearRect(0,0,board.width,board.height);
+    for(let i=0;i<undoArr.length;i++){
+        if(undoArr[i].event=="mousedown"){
+            tool.beginPath(); //this function is called before line beginning
+            tool.moveTo(undoArr[i].x,undoArr[i].y);
+        }
+        if(undoArr[i].event=="mousemove"){
+            tool.lineTo(undoArr[i].x,undoArr[i].y);
+            tool.stroke();
+        }
+    }    
+        
+}
+   
+</script>
+</body>
+</html>

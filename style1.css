@@ -1,0 +1,412 @@
+*{
+    box-sizing: border-box;
+    margin:0;
+}
+body{
+    display: flex;
+    
+    
+}
+:root{
+    --themeColor:radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
+    --iconColor:black;
+    --boardColor:white;
+    --textColor:black;
+}
+/* ************************************Left Navigator****************************************** */
+
+.navigator{
+    height: 100vh;
+    width: 3rem;
+    border:1px solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%); */
+    background-image: var(--themeColor);
+    color:var(--iconColor);
+}
+.top_section{
+    height:15rem;
+}
+.box{
+    height:2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    border-bottom: 1px solid;
+}
+
+/***************Pencil*******************/
+.pencil_menu{
+    position: absolute;
+    border:1px solid;
+    height:2.5rem;
+    width:6rem;
+    top:0px;
+    left:5px;
+    color:var(--iconColor);
+    display:none;  
+}
+.size{
+    height:100%;
+    width:100%;
+    display: flex;
+}
+.sizePlus,.sizeMinus{
+    height:100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    border-right: 1px solid;
+    background-image: var(--themeColor);
+}
+
+.lower_section{
+    height:10rem;
+    background-image: var(--themeColor);
+    color:var(--iconColor);
+}
+/*************************Color palette*******************/
+.color_menu{
+    position: absolute;
+    height:4rem;
+    width:8rem;
+    top:5rem;
+    display: none;
+   
+}
+.color_box{
+    height:50%;
+    width:100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    
+}
+.color{
+    border:1px solid;
+    border-radius: 30%;
+    height:100%;
+    width:30%; 
+}
+.color1{
+    background-color:#ff9a9e;
+}
+.color2{
+   background-color: #96e6a1;
+}
+.color3{
+    background-color:#00f2fe;
+}
+.color4{
+    background-color: #cd9cf2;
+}
+.color5{
+    background-color:#2F323A;
+}
+.color6{
+    background-color: #D8315B;
+ 
+}
+
+/***********************note*************************/
+.note_menu{
+    height:2.5rem;
+    width:10rem;
+    border:1px solid;
+    position: absolute;
+    top:7.5rem;
+    display: flex;
+    justify-content: space-between;
+    display: none;
+
+}
+.colors{
+    width:60%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 1.5rem;
+}
+.noteBtn{
+    width:40%;
+    background-color: black;
+    color: white;
+    height:35px;
+}
+.noteBtn:hover{
+    background-color: rgb(85, 84, 84);
+}
+.cherry{
+    color: #e74c3c;
+    /* #c0392b */
+}
+.olive{
+    color:#97C02F;
+    /* #658E15 */
+}
+.skyblue{
+    color:#63cdda;
+    /* dark:#3dc1d3 */
+}
+.active_box{
+    display: block;
+}
+.active_note{
+    display: flex;
+}
+.active_color{
+    opacity: 0.7;
+}
+/* ***************Upload*************** */
+#upload_input{
+    display: none;
+}
+/**********************settings*****************/
+.setting_menu{
+    height:4rem;
+    width:8rem;
+    position: absolute;
+    top:30.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    display: none;
+}
+.theme_colors{
+    height:50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 1.5rem;
+}
+.theme_color_box{
+    height:100%;
+    width:30%;
+    border-radius: 30%;
+}
+.theme_type{
+    height:50%;
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.dark{
+    background-color: black;
+    color: white;
+    height:25px;
+}
+.dark:hover{
+    background-color: rgb(85, 84, 84);
+}
+.light{
+    background-color: white;
+    border-color: white;
+    height:25px;
+}
+.light:hover{
+    background-color: rgb(243, 241, 241);
+}
+.vibrant_green{
+    background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+}
+.sunset_orange{
+    background-image: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%); 
+}
+.ocean_blue{
+    background-image:radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
+}
+.active_setting{
+    display: flex;
+}
+/***********************************drawing board********************************/
+.drawing_board{
+    height:100vh;
+    width:calc(100vw - (3rem + 3rem));
+    position: relative;
+    overflow: hidden;
+    background-color:var(--boardColor);
+    
+ 
+}
+#board{
+    height:100%;
+    width:100%;  
+}
+
+/* ***************************Adding Note******************** */
+.note_container{
+    position: absolute;
+    top:10rem;
+    left:10rem;
+}
+.note{
+    position:relative;
+    width:15rem;
+    height:15rem;
+}
+.note::before{
+    /* content property is used with before and after pseudo elements to apply the changes */
+    content: "";
+    position: absolute;
+    /* this pseudo element will make a border with no height or width just the border */
+    bottom:0;
+    right:0;
+    border-width: 60px 60px 0 0;
+    border-color: rgb(197, 188, 188) var(--boardColor);
+    border-style: solid;    
+    
+}
+.note_header{
+    height:20px;
+    width: 99%;
+}
+.circle{
+    padding-left: 5px;
+    padding-right:5px;
+    color: var(--boardColor);
+    
+}
+.note_content{
+    height: 63%;
+    width: 99%;
+    overflow: auto;
+    border:1px solid;
+    font-size:25px;
+}
+.note_cherry{
+    background-color: #e74c3c;
+}
+.note_delete{
+    position: absolute;
+    bottom:8px;
+    left:8px;
+    font-size:1.5rem;
+}
+/* *************Shapes******************** */
+.shape_menu{
+    border:1px solid;
+    position: absolute;
+    height:2.5rem;
+    width:6rem;
+    top:10rem;
+    display: flex;
+    display: none;
+}
+.shape{
+    width:50%;
+    height:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    background-image: var(--themeColor);
+    border-right:1px solid;
+}
+.activeFlex{
+    display: flex;
+}
+/* *******************ABout*************************** */
+.user_guide_container{
+    border:1px solid;
+    height:35rem;
+    width:35rem;
+    position: absolute;
+    top:1rem;
+    left:22rem;
+    display: none;
+}
+.header{
+    height:1.7rem;
+    font-family: sans-serif;
+    font-size: 1.3rem;
+    text-align: center;
+    background-image: var(--themeColor);
+}
+
+.about_info_container{
+    height:30rem;
+    width:35rem;
+    display: flex;
+    
+    
+}
+.icon{
+    height:2.5rem;
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid;
+    
+}
+.about_icons_box{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height:100%;
+    width:3rem;
+    font-size: 1.5rem;
+    color:var(--textColor);
+}
+.name_box{
+    height:100%;
+    width:6rem;
+    font-weight: 600;
+    background-image: var(--themeColor);
+}
+.icon_name{
+    height:2.5rem;
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.description_box{
+    height:100%;
+    width:26rem;
+    color:var(--textColor);
+}
+.icon_description{
+    height:2.5rem;
+    width:100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid;
+}
+.footer{
+    height:3.1rem;
+    font-family: 'Satisfy', cursive;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    background-image: var(--themeColor);
+}
+.activeBlock{
+    display: block;
+}
+
+/* ********************************Right Navigation****************************** */
+.right_bar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color:var(--boardColor);
+}
+.side_bar{
+    height:5rem;
+    border:1px solid;
+    width:3rem;
+    background-image: var(--themeColor);
+    color:var(--iconColor);
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="500"></canvas>
+</body>
+<script>
+    let board=document.querySelector("#canvas");
+    let tool=board.getContext('2d');
+    let rect={};
+    let drag=false;
+    function draw() {
+            tool.strokeStyle="red";
+            // tool.fillRect(rect.startX, rect.startY, rect.w, rect.h);
+            // tool.arc(rect.startX, rect.startY,50,0, 2*Math.PI);
+            tool.beginPath();
+            let x=rect.startX;
+            let y=rect.startY;
+            let radius=rect.w;
+            // tool.clearRect(0,0,canvas.width,canvas.height);
+            // if(radius>0)
+            //     tool.arc(rect.startX, rect.startY, radius, 0, 2 * Math.PI);
+            // tool.fill();
+            tool.moveTo(rect.startX,rect.startY);
+            tool.lineTo(rect.w,rect.h);
+            tool.stroke();
+    }
+    function mousedown(e){
+        rect.startX=e.pageX-this.offsetLeft;
+        rect.startY = e.pageY - this.offsetTop;
+        drag = true;
+    }
+    function mouseup(){
+        drag=false;
+    }
+    function mousemove(e) {
+        tool.clearRect(0,0,canvas.width,canvas.height);
+        if (drag) {
+        rect.w = (e.pageX - this.offsetLeft) - rect.startX;
+        rect.h = (e.pageY - this.offsetTop) - rect.startY ;
+        // tool.clearRect(0,0,canvas.width,canvas.height);
+        draw();
+        }
+    }
+    function init(){
+        board.addEventListener("mousedown",mousedown,false);
+        board.addEventListener("mouseup",mouseup,false);
+        board.addEventListener("mousemove",mousemove,false);
+    }
+    init();
+</script>
+</html>
