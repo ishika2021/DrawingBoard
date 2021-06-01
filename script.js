@@ -316,7 +316,6 @@ function draw(pencilSize){
     board.addEventListener("mousedown",function(e){
         let x=e.clientX;
         let y=e.clientY;
-        x=getCordinates(x);
         let points={
             "x":x,
             "y":y,
@@ -334,7 +333,6 @@ function draw(pencilSize){
     board.addEventListener("mousemove",function(e){
         let x=e.clientX;
         let y=e.clientY;
-        x=getCordinates(x);
         if(isMouseDown==true){
             tool.lineTo(x,y);
             tool.stroke();
@@ -352,18 +350,13 @@ function draw(pencilSize){
     board.addEventListener("mouseup",function(e){
         isMouseDown=false;
     })
-    function getCordinates(initialX){
-        let navobj=navigationEle.getBoundingClientRect();
-        let sidebarobj=sideBarEle.getBoundingClientRect();
-        return initialX;
-    }
+    
 }
 function createNote(){
     let colorArr=document.querySelectorAll(".note_color");
     let addNoteBtn=document.querySelector(".noteBtn");
     addNoteBtn.addEventListener("click",function(){
-        let bgColor="blue";
-        let borderColor="lightblue";
+        let bgColor="pink";
         for(let i=0;i<colorArr.length;i++){
             if(colorArr[i].classList.contains("active_color")){
                 let colorName=colorArr[i].classList[2];
