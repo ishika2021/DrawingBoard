@@ -12,3 +12,4 @@ Features:
 8- The canvas can be zoomed in or out with zoom buttons.
 9- The about option will give description of every tool.
 
+!(drawingBoardUI.jpeg)
