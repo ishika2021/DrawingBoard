@@ -390,16 +390,12 @@ function createNote(){
         <div class="note_content" contenteditable="true"></div>
         <i class="fas fa-trash-alt note_delete"></i>
                         </div>`;
-        // console.log("->",noteContainer.children[0]);
         let note=noteContainer.children[0];
         note.style.backgroundColor=bgColor;
-        // let styleElem=note.appendChild(document.createElement("style"));
-        // styleElem.innerHTML=`.note::before{border-color:${borderColor} #fff;}`;
         drawingBoardEle.appendChild(noteContainer);
-        //  dragTheNote();
         let noteArr=document.querySelectorAll(".note_container");
         for(let i=0;i<noteArr.length;i++){
-            noteArr[i].addEventListener("click",dragTheNote(noteArr[i]));
+            noteArr[i].addEventListener("click",dragNote(noteArr[i]));
         }
         let noteDelBtn=document.querySelector(".note_delete");
         noteDelBtn.addEventListener("click",function(){
@@ -409,55 +405,30 @@ function createNote(){
 
     });
 }
-function dragTheNote(element){
-    // tool.strokeStyle = 'rgba(0,0,0,0)';
-    // tool.fillStyle = 'rgba(0,0,0,0)';
-        let note=element.querySelector(".note");
-        let active=false;
-        let currentX;
-        let currentY;
-        let initialX;
-        let initialY;
-        let xoffset=0;
-        let yoffset=0;
+function dragNote(e){
+    let stickyNote=e;
+    let offset=[0,0];
+    let isDown=false;
+    stickyNote.addEventListener('mousedown',function(e){
         drawingBoardEle.style.cursor="move";
-        drawingBoardEle.addEventListener("mousedown",dragStart,false);
-        drawingBoardEle.addEventListener("mouseup",dragEnd,false);
-        drawingBoardEle.addEventListener("mousemove",drag,false);
-        function dragStart(e){
-            
-            // clientX and clientY will return the exact cordinates of the point we click with mouse
-            initialX=e.clientX-xoffset;
-            initialY=e.clientY- yoffset;
-            // so that only note gets drag
-            if(e.target === note){
-                active=true;
-                // console.log("true");
-            }
+        isDown=true;
+        offset=[
+            stickyNote.offsetLeft-e.clientX,
+            stickyNote.offsetTop-e.clientY
+        ];
+    },true);
+    drawingBoardEle.addEventListener('mousemove',function(e){
+        if(isDown){
+            tool.strokeStyle = 'rgba(0,0,0,0)';
+            stickyNote.style.left=(e.clientX+offset[0])+'px';
+            stickyNote.style.top=(e.clientY+offset[1])+'px';
         }
-        function drag(e){
-            // e.preventDefault();
-            if(active){
-                tool.strokeStyle = 'rgba(0,0,0,0)';
-                currentX=e.clientX-initialX;
-                currentY=e.clientY-initialY;
-
-                xoffset=currentX;
-                yoffset=currentY;
-                setTranslate(currentX,currentY,note);
-            }
-        }
-        function setTranslate(currentX,currentY,note){
-            note.style.transform="translate3d(" + currentX + "px, " + currentY + "px, 0)";
-        }
-        function dragEnd(e){
-            
-            initialX=currentX;
-            initialY=currentY;
-            active=false;
-            if(drawingBoardEle.style.cursor=="move")
-                drawingBoardEle.style.cursor="default";
-        }
+    },true);
+    drawingBoardEle.addEventListener('mouseup',function(){
+        if(drawingBoardEle.style.cursor=="move")
+            drawingBoardEle.style.cursor="default";
+        isDown=false;
+    },true);
 }
 function redraw(undoArr){
     
