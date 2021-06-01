@@ -44,8 +44,8 @@ body{
     border:1px solid;
     height:2.5rem;
     width:6rem;
-    top:0px;
-    left:5px;
+    top:0;
+    left:0;
     color:var(--iconColor);
     display:none;  
 }
@@ -171,7 +171,7 @@ body{
     height:4rem;
     width:8rem;
     position: absolute;
-    top:30.5rem;
+    top:86vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
