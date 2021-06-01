@@ -227,7 +227,6 @@ shapeEle.addEventListener("click",function(){
     let shapeMenuEle=document.querySelector(".shape_menu");
     let shapeArr=document.querySelectorAll(".shape");
     let isActive=shapeMenuEle.classList.contains("activeFlex");
-    
     if(isActive==false){
         shapeMenuEle.classList.add("activeFlex");
         isActive=true;
@@ -251,6 +250,7 @@ shapeEle.addEventListener("click",function(){
     function drawRect(){
         tool.strokeStyle='rgba(0,0,0,0)';
         tool.fillStyle=pencilColor;
+        tool.globalCompositeOperation = "source-over";
         if(clickedShape=="rectangle")
             tool.fillRect(rect.startX, rect.startY, rect.w, rect.h);
         else if(clickedShape=="circle"){
@@ -300,7 +300,6 @@ aboutEle.addEventListener("click",function(){
 // *********************Helper Functions************************
 function draw(pencilSize){
     if(activeTool=="pencil"){
-        console.log("yes");
         drawingBoardEle.style.cursor="default";
         tool.globalCompositeOperation = "source-over";
         tool.strokeStyle=pencilColor;
